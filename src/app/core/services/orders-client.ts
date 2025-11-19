@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Order } from '../models/orders/Order.DTO.model';
 import { ApiResponse } from '../models/global/Response.model';
 import { environment } from '../../../environments/environment';
+import { OrderDetails } from '../models/orders/OrderDetails.DTO.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +15,11 @@ export class OrdersClient {
   private http = inject(HttpClient);
 
   onOrders = () => this.orders$.asObservable();
+
+  getById = (id: number): Observable<ApiResponse<OrderDetails>> =>
+    this.http.get<ApiResponse<OrderDetails>>(
+      environment.apiUrl + 'orders/' + id
+    );
 
   get = (): Observable<ApiResponse<Order[]>> =>
     this.http
