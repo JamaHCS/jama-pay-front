@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideZonelessChangeDetection } from '@angular/core';
+import { provideHttpClient } from '@angular/common/http';
 import { Orders } from './orders';
 
 describe('Orders', () => {
@@ -9,7 +10,7 @@ describe('Orders', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Orders],
-      providers: [provideZonelessChangeDetection()]
+      providers: [provideZonelessChangeDetection(), provideHttpClient()]
     })
     .compileComponents();
 
