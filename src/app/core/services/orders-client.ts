@@ -5,6 +5,7 @@ import { Order } from '../models/orders/Order.DTO.model';
 import { ApiResponse } from '../models/global/Response.model';
 import { environment } from '../../../environments/environment';
 import { OrderDetails } from '../models/orders/OrderDetails.DTO.model';
+import { OrderRequest } from '../models/orders/Order.request.model';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +25,7 @@ export class OrdersClient {
   get = (): Observable<ApiResponse<Order[]>> =>
     this.http
       .get<ApiResponse<Order[]>>(environment.apiUrl + 'orders')
-      .pipe(tap((res) => this.orders$.next(res.value)));
+      .pipe(tap((res) => this.orders$.next([...res.value].reverse())));
 
   pay = (order: Order): Observable<ApiResponse<boolean>> =>
     this.http.put<ApiResponse<boolean>>(
@@ -37,4 +38,7 @@ export class OrdersClient {
       environment.apiUrl + 'orders/cancel/' + order.id,
       {}
     );
+
+  create = (request: OrderRequest): Observable<ApiResponse<Order>> => 
+    this.http.post<ApiResponse<Order>>(environment.apiUrl + 'orders', request);
 }

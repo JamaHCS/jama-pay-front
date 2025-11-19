@@ -1,1 +1,47 @@
-      <p-button label="Add Order" />
+<p-button label="Create Order" severity="primary" (click)="toggleDialog()" />
+
+<p-dialog header="Create order" [modal]="true" [(visible)]="visible">
+  <form [formGroup]="form">
+    <div class="form-row">
+      <label for="method">Payment method:</label>
+      <p-select
+        [options]="methods"
+        formControlName="method"
+        optionLabel="key"
+        optionValue="value"
+        placeholder="Select a method"
+      />
+    </div>
+    <p-button
+      type="button"
+      [rounded]="true"
+      severity="success"
+      (click)="addProduct()"
+      label="Add product"
+      icon="pi pi-plus"
+    />
+    <div formArrayName="products">
+      @for (product of products.controls; track $index) {
+      <div [formGroupName]="$index" class="product-row">
+        <input pInputText formControlName="name" placeholder="Product" />
+        <p-inputnumber formControlName="unitPrice" inputId="unitPrice" mode="currency" currency="USD" locale="en-US" />
+
+        <p-button
+          icon="pi pi-trash"
+          (click)="removeProduct($index)"
+          severity="danger"
+          [text]="true"
+        />
+      </div>
+      }
+    </div>
+    <p-button
+      type="button"
+      [rounded]="true"
+      severity="contrast"
+      [disabled]="form.invalid || products.length === 0"
+      (click)="send()"
+      label="Create order"
+    />
+  </form>
+</p-dialog>
