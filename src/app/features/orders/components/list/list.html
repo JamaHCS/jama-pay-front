@@ -48,7 +48,7 @@
         </td>
         <td>
           <div class="table-actions">
-            <app-details-order-button />
+            <app-details-order-button [order]="order" />
             <p-button icon="pi pi-money-bill" [rounded]="true" severity="success" (click)="confirmPay($event, order)" />
             <p-button icon="pi pi-times" [rounded]="true" severity="danger" (click)="confirmCancel($event, order)" />
           </div>

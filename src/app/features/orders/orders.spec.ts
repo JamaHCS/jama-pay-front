@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideZonelessChangeDetection } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { Orders } from './orders';
 
 describe('Orders', () => {
@@ -10,7 +11,12 @@ describe('Orders', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Orders],
-      providers: [provideZonelessChangeDetection(), provideHttpClient()]
+      providers: [
+        provideZonelessChangeDetection(),
+        provideHttpClient(),
+        ConfirmationService,
+        MessageService
+      ]
     })
     .compileComponents();
 
