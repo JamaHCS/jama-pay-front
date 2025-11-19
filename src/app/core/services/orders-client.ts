@@ -19,4 +19,16 @@ export class OrdersClient {
     this.http
       .get<ApiResponse<Order[]>>(environment.apiUrl + 'orders')
       .pipe(tap((res) => this.orders$.next(res.value)));
+
+  pay = (order: Order): Observable<ApiResponse<boolean>> =>
+    this.http.put<ApiResponse<boolean>>(
+      environment.apiUrl + 'orders/pay/' + order.id,
+      {}
+    );
+
+  cancel = (order: Order): Observable<ApiResponse<boolean>> =>
+    this.http.put<ApiResponse<boolean>>(
+      environment.apiUrl + 'orders/cancel/' + order.id,
+      {}
+    );
 }

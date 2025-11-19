@@ -37,20 +37,20 @@
         </th>
       </tr>
     </ng-template>
-    <ng-template #body let-product>
+    <ng-template #body let-order>
       <tr>
-        <td>{{ product.id }}</td>
-        <td>{{ product.providerName }}</td>
-        <td>{{ product.status }}</td>
-        <td>{{ product.method }}</td>
+        <td>{{ order.id }}</td>
+        <td>{{ order.providerName }}</td>
+        <td>{{ order.status }}</td>
+        <td>{{ order.method }}</td>
         <td>
-          {{ product.grandTotal | currency:'MXN':'symbol-narrow':'1.2-2':'es-MX'
-          }}
+          {{ order.grandTotal | currency:'MXN':'symbol-narrow':'1.2-2':'es-MX' }}
         </td>
         <td>
           <div class="table-actions">
-            <p-button icon="pi pi-money-bill" [rounded]="true" severity="success" />
-            <p-button icon="pi pi-times" [rounded]="true" severity="danger" />
+            <app-details-order-button />
+            <p-button icon="pi pi-money-bill" [rounded]="true" severity="success" (click)="confirmPay($event, order)" />
+            <p-button icon="pi pi-times" [rounded]="true" severity="danger" (click)="confirmCancel($event, order)" />
           </div>
         </td>
       </tr>
